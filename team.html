@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Recovery Alliance | Our Team</title>
+    <link rel="icon" type="image/png" href="imgs2/logo.JPG">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Lora:wght@400;500&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #map { 
+        height: 450px; 
+        width: 100%; 
+        z-index: 1; /* Ensures it stays behind navigation menus */
+        }
+        :root {
+            --primary-green: #1E4D3B;
+            --secondary-green: #4CAF6A;
+            --terracotta: #D96C48;
+            --golden: #F4C542;
+            --charcoal: #2B2B2B;
+            --cream: #FAF9F6;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--charcoal);
+            background-color: var(--cream);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        h1 { font-size: 48px; line-height: 1.2; }
+        h2 { font-size: 36px; }
+        h3 { font-size: 28px; }
+
+        .accent-text {
+            font-family: 'Pacifico', cursive;
+            color: var(--secondary-green);
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(30, 77, 59, 0.98);
+            padding: 16px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;    /* Vertically centers the text with the logo */
+            text-decoration: none;  /* Removes underline from the link */
+            gap: 15px;             /* This controls the exact space between logo and text */
+        }
+
+        .brand-logo {
+            width: 50px;           /* Adjust size as needed */
+            height: 50px;
+            border-radius: 50%;    /* Keeps it circular */
+            object-fit: cover;
+            
+            background-color: #fff;
+        }
+
+        .brand-name {
+            color: white;
+            font-size: 1.8rem;
+            font-family: serif;    /* Matches the look in your screenshot */
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links > li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 15px;
+            font-weight: 500;
+            display: block;
+            padding: 8px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-green);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--cream);
+        }
+
+        .dropdown-toggle.active {
+            color: var(--golden);
+        }
+
+        .dropdown-toggle::after {
+            content: '▼';
+            font-size: 10px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            color: var(--charcoal);
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--cream);
+            color: var(--primary-green);
+        }
+
+        .btn-donate {
+            display: inline-block;
+            padding: 14px 40px;
+            min-width: 120px;
+            border-radius: 10px;
+            background: var(--terracotta);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .btn-donate:hover {
+            background: #c55a3a;
+            transform: translateY(-2px);
+        }
+
+
+        /* Hero Section */
+        .hero {
+            background: url(imgs2/volunteers.png);
+            background-size: cover;
+            background-position: center top -200px; /* shifts image up by 50px */
+            color: white;
+            padding: 100px 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(76, 175, 106, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero h1 {
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            line-height: 1.8;
+        }
+
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        /* Core Team Section */
+        .core-team {
+            background: white;
+        }
+
+        .core-team h2 {
+            text-align: center;
+            color: var(--primary-green);
+            margin-bottom: 60px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .team-card {
+            perspective: 1000px;
+            height: 450px;
+            cursor: pointer;
+        }
+
+        .team-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .team-card.flipped .team-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .team-card-front,
+        .team-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .team-card-front {
+            background: var(--cream);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .team-photo {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, var(--secondary-green) 0%, var(--primary-green) 100%);
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+
+        .team-photo::before {
+            content: '👤';
+            font-size: 80px;
+            position: absolute;
+            opacity: 0.3;
+        }
+
+        .team-info {
+            padding: 24px;
+            text-align: center;
+        }
+
+        .team-info h3 {
+            color: var(--primary-green);
+            margin-bottom: 8px;
+            font-size: 24px;
+        }
+
+        .team-role {
+            color: var(--terracotta);
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .team-quote {
+            font-style: italic;
+            color: #666;
+            font-size: 15px;
+        }
+
+        .team-card-back {
+            background: var(--primary-green);
+            color: white;
+            transform: rotateY(180deg);
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .team-bio {
+            margin-bottom: 24px;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .team-contact {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--secondary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+
+        .contact-icon:hover {
+            background: var(--terracotta);
+            transform: scale(1.1);
+        }
+
+        /* Advisory Board Section */
+        .advisory-board {
+            background: var(--cream);
+        }
+
+        .advisory-board h2 {
+            text-align: center;
+            color: var(--primary-green);
+            margin-bottom: 60px;
+        }
+
+        .advisory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .advisor-card {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .advisor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .advisor-card h3 {
+            color: var(--primary-green);
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+
+        .advisor-title {
+            color: var(--terracotta);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .advisor-affiliation {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .advisor-bio {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            background: white;
+        }
+
+        .section-divider {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-divider h2 {
+            color: var(--primary-green);
+            margin-bottom: 16px;
+        }
+
+        .section-divider p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .partners-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .partner-map {
+            position: sticky;
+            top: 100px;
+            background: var(--cream);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        
+
+        .map-legend {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .leaflet-popup-content {
+            font-family: 'Montserrat', sans-serif; /* Or your specific font name */
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Change the background color of the popup bubble */
+        .leaflet-popup-content-wrapper {
+            background: var(--terracotta);
+            color: #ffffff;      /* White text */
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        /* Change the color of the little "tip" triangle at the bottom */
+        .leaflet-popup-tip {
+            background: var(--primary-green);
+        }
+
+        /* Change the 'X' close button color */
+        .leaflet-popup-close-button {
+            color: #ffffff !important;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--secondary-green);
+        }
+
+        .partner-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .partner-card {
+            background: var(--cream);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .partner-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .partner-header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .partner-logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            text-align: center;
+            padding: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .partner-logo::before {
+            content: '🏢';
+            font-size: 32px;
+            position: absolute;
+            opacity: 0.3;
+        }
+
+        .partner-info h3 {
+            color: var(--primary-green);
+            margin-bottom: 4px;
+            font-size: 22px;
+        }
+
+        .partner-type {
+            color: var(--terracotta);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .partner-description {
+            color: #555;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .partner-stat {
+            display: inline-block;
+            background: var(--secondary-green);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .partner-link {
+            display: inline-block;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .partner-link:hover {
+            color: var(--secondary-green);
+        }
+
+        /* Quote Banner */
+        .quote-banner {
+            background: linear-gradient(135deg, var(--terracotta) 0%, #c55a3a 100%);
+            color: white;
+            padding: 80px 32px;
+            text-align: center;
+        }
+
+        .quote-banner-text {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 28px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 60px 32px 24px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-green);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .footer-section p {
+            line-height: 1.8;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-green);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 44px;
+            height: 44px;
+            background: rgba(76, 175, 106, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+        }
+
+        @media (max-width: 968px) {
+            .partners-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .partner-map {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 28px; }
+            .container { padding: 60px 24px; }
+            .nav-links { display: none; }
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid var(--secondary-green);
+            background: white;
+            font-size: 15px;
+        }
+
+        .newsletter-form button {
+            padding: 14px 28px;
+            background: var(--secondary-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-green);
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo-group">
+            <img src="imgs2/logo.JPG" alt="Youth Food Recovery Logo" class="brand-logo">
+            <span class="brand-name">Food Recovery Alliance</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <span class="dropdown-toggle active">Who We Are</span>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Us</a>
+                        <a href="team.html" style="background: var(--cream); color: var(--primary-green);">Our Team</a>
+                        <a href="programs.html">Our Programs</a>
+                        <a href="calendar.html">Calendar</a>
+                    </div>
+                </li>
+                <li><a href="get-involved.html">Get Involved</a></li>
+                <li><a href="donate.html" class="btn-donate">Donate</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Youth-led. <span class="accent-text">Community-powered.</span></h1>
+            <p>Meet the passionate young leaders and dedicated partners who make our mission possible. Together, we're creating a more equitable food network.</p>
+            <div class="hero-illustration">
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Team Section -->
+    <section class="core-team">
+        <div class="container">
+            <h2>Core <span class="accent-text">Team</span></h2>
+            <div class="team-grid">
+                <div class="team-card" onclick="this.classList.toggle('flipped')">
+                    <div class="team-card-inner">
+                        <div class="team-card-front">
+                            <div class="team-photo">
+                               
+                            </div>
+                            <div class="team-info">
+                                <h3>Apollin Lu</h3>
+                                <p class="team-role">Founder and Executive Director</p>
+                                <p class="team-quote">"Every young person has the power to change their community."</p>
+                            </div>
+                        </div>
+                        <div class="team-card-back">
+                            <p class="team-bio">Maya founded Youth Food Recovery in 2019 while in high school. Her passion for food justice and environmental sustainability drives the organization's mission. She has been recognized as a regional youth leader and speaks nationally on food systems change.</p>
+                            <div class="team-contact">
+                                <a href="#" class="contact-icon" aria-label="LinkedIn">in</a>
+                                <a href="#" class="contact-icon" aria-label="Email">✉</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card" onclick="this.classList.toggle('flipped')">
+                    <div class="team-card-inner">
+                        <div class="team-card-front">
+                            <div class="team-photo">
+                                
+                            </div>
+                            <div class="team-info">
+                                <h3>Yashita Kaku</h3>
+                                <p class="team-role">Cofounder</p>
+                                <p class="team-quote">"Logistics is love in action."</p>
+                            </div>
+                        </div>
+                        <div class="team-card-back">
+                            <p class="team-bio">Jordan ensures our food recovery operations run smoothly and efficiently. With a background in supply chain management and a passion for reducing waste, Jordan coordinates our network of volunteers and partners to maximize our impact.</p>
+                            <div class="team-contact">
+                                <a href="#" class="contact-icon" aria-label="LinkedIn">in</a>
+                                <a href="#" class="contact-icon" aria-label="Email">✉</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card" onclick="this.classList.toggle('flipped')">
+                    <div class="team-card-inner">
+                        <div class="team-card-front">
+                            <div class="team-photo">
+                               
+                            </div>
+                            <div class="team-info">
+                                <h3>Sophie Buckley</h3>
+                                <p class="team-role">Communications Director</p>
+                                <p class="team-quote">"Community is our greatest resource."</p>
+                            </div>
+                        </div>
+                        <div class="team-card-back">
+                            <p class="team-bio">Priya builds and nurtures our volunteer community, creating meaningful opportunities for youth to engage with food justice. Her work ensures every volunteer feels valued, supported, and empowered to make a difference.</p>
+                            <div class="team-contact">
+                                <a href="#" class="contact-icon" aria-label="LinkedIn">in</a>
+                                <a href="#" class="contact-icon" aria-label="Email">✉</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card" onclick="this.classList.toggle('flipped')">
+                    <div class="team-card-inner">
+                        <div class="team-card-front">
+                            <div class="team-photo">
+                               
+                            </div>
+                            <div class="team-info">
+                                <h3>Brenton Hsu</h3>
+                                <p class="team-role">Outreach Director</p>
+                                <p class="team-quote">"Partnerships multiply our impact."</p>
+                            </div>
+                        </div>
+                        <div class="team-card-back">
+                            <p class="team-bio">Alex develops and maintains relationships with farms, food banks, and community organizations. Their strategic approach to partnership building has expanded our reach and deepened our community connections.</p>
+                            <div class="team-contact">
+                                <a href="#" class="contact-icon" aria-label="LinkedIn">in</a>
+                                <a href="#" class="contact-icon" aria-label="Email">✉</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card" onclick="this.classList.toggle('flipped')">
+                    <div class="team-card-inner">
+                        <div class="team-card-front">
+                            <div class="team-photo">
+                               
+                            </div>
+                            <div class="team-info">
+                                <h3>Angelina Guo</h3>
+                                <p class="team-role">Vancouver Chapter Head</p>
+                                <p class="team-quote">"Partnerships multiply our impact."</p>
+                            </div>
+                        </div>
+                        <div class="team-card-back">
+                            <p class="team-bio">Alex develops and maintains relationships with farms, food banks, and community organizations. Their strategic approach to partnership building has expanded our reach and deepened our community connections.</p>
+                            <div class="team-contact">
+                                <a href="#" class="contact-icon" aria-label="LinkedIn">in</a>
+                                <a href="#" class="contact-icon" aria-label="Email">✉</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card" onclick="this.classList.toggle('flipped')">
+                    <div class="team-card-inner">
+                        <div class="team-card-front">
+                            <div class="team-photo">
+                              
+                            </div>
+                            <div class="team-info">
+                                <h3>Sarah Johnson</h3>
+                                <p class="team-role">Education Coordinator</p>
+                                <p class="team-quote">"Knowledge creates lasting change."</p>
+                            </div>
+                        </div>
+                        <div class="team-card-back">
+                            <p class="team-bio">Sarah develops educational programs that teach youth about food systems, sustainability, and social justice. Her workshops and curriculum have reached over 1,000 students across 15 schools.</p>
+                            <div class="team-contact">
+                                <a href="#" class="contact-icon" aria-label="LinkedIn">in</a>
+                                <a href="#" class="contact-icon" aria-label="Email">✉</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card" onclick="this.classList.toggle('flipped')">
+                    <div class="team-card-inner">
+                        <div class="team-card-front">
+                            <div class="team-photo">
+                               
+                            </div>
+                            <div class="team-info">
+                                <h3>Marcus Thompson</h3>
+                                <p class="team-role">Technology Lead</p>
+                                <p class="team-quote">"Innovation amplifies impact."</p>
+                            </div>
+                        </div>
+                        <div class="team-card-back">
+                            <p class="team-bio">Marcus manages our technology infrastructure and develops tools to streamline food recovery operations. His innovative solutions help us track impact and coordinate volunteers more effectively.</p>
+                            <div class="team-contact">
+                                <a href="#" class="contact-icon" aria-label="LinkedIn">in</a>
+                                <a href="#" class="contact-icon" aria-label="Email">✉</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advisory Board Section -->
+    <section class="advisory-board">
+        <div class="container">
+            <h2>Advisory <span class="accent-text">Board</span></h2>
+            <div class="advisory-grid">
+                <div class="advisor-card">
+                    <h3>Dr. Pratap-Singh</h3>
+                    <p class="advisor-title">Food Systems Advisor</p>
+                    <p class="advisor-affiliation">Associate Professor, Food, Nutrition and Health, University of British Columbia</p>
+                    <p class="advisor-bio">Dr. Pratap-Singh brings 15 years of expertise in sustainable agriculture and food security policy. He advises on program development and partnership strategy.</p>
+                </div>
+
+                <div class="advisor-card">
+                    <h3>David Lu</h3>
+                    <p class="advisor-title">Onsite Farm Advisor</p>
+                    <p class="advisor-affiliation">Owner, Camas Farms</p>
+                    <p class="advisor-bio">Mr. Lu has over 20 years of experience in community organizing and nonprofit management. He provides guidance on organizational growth and community engagement.</p>
+                </div>
+
+                <div class="advisor-card">
+                    <h3>Sophie Buckely</h3>
+                    <p class="advisor-title">Youth Leadership Advisor</p>
+                    <p class="advisor-affiliation">Communications Director, Food Recovery Alliance</p>
+                    <p class="advisor-bio">Sophie specializes in youth development and leadership training. She helps ensure our programs effectively empower young people to lead change.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+        <div class="container">
+            <div class="section-divider">
+                <h2>Our Partners <span class="accent-text">in Impact</span></h2>
+                <p>Working together to create a more sustainable and equitable food system.</p>
+            </div>
+            <div class="partners-layout">
+                <div class="partner-map">
+                    <div id="map"></div>
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: var(--secondary-green);"></div>
+                            <span>Farms</span>
+                        </div>
+                
+                    </div>
+                </div>
+
+                <div class="partner-cards">
+                    <div class="partner-card">
+                        <div class="partner-header">
+                            <div class="partner-logo">
+                                [LOGO<br>PLACEHOLDER]
+                            </div>
+                            <div class="partner-info">
+                                <h3>Green Valley Farms</h3>
+                                <p class="partner-type">Farm Partner</p>
+                            </div>
+                        </div>
+                        <p class="partner-description">Organic farm providing surplus produce weekly. Our longest-standing partner committed to reducing agricultural waste.</p>
+                        
+                        <a href="#" class="partner-link">Visit Website →</a>
+                    </div>
+
+                    <div class="partner-card">
+                        <div class="partner-header">
+                            <div class="partner-logo">
+                                [LOGO<br>PLACEHOLDER]
+                            </div>
+                            <div class="partner-info">
+                                <h3>Community Food Bank</h3>
+                                <p class="partner-type">Distribution Partner</p>
+                            </div>
+                        </div>
+                        <p class="partner-description">Primary distribution hub serving families across the region. Together we've delivered thousands of meals to those in need.</p>
+                       
+                        <a href="#" class="partner-link">Visit Website →</a>
+                    </div>
+
+                    <div class="partner-card">
+                        <div class="partner-header">
+                            <div class="partner-logo">
+                                [LOGO<br>PLACEHOLDER]
+                            </div>
+                            <div class="partner-info">
+                                <h3>Fresh Market Co-op</h3>
+                                <p class="partner-type">Grocery Partner</p>
+                            </div>
+                        </div>
+                        <p class="partner-description">Local grocery cooperative donating produce approaching sell-by dates. Supporting both sustainability and community.</p>
+                        
+                        <a href="#" class="partner-link">Visit Website →</a>
+                    </div>
+
+                    <div class="partner-card">
+                        <div class="partner-header">
+                            <div class="partner-logo">
+                                [LOGO<br>PLACEHOLDER]
+                            </div>
+                            <div class="partner-info">
+                                <h3>Sunrise Orchards</h3>
+                                <p class="partner-type">Farm Partner</p>
+                            </div>
+                        </div>
+                        <p class="partner-description">Family-owned orchard providing seasonal fruit donations. Helping us bring fresh, local produce to our community.</p>
+                        
+                        <a href="#" class="partner-link">Visit Website →</a>
+                    </div>
+
+                    <div class="partner-card">
+                        <div class="partner-header">
+                            <div class="partner-logo">
+                                [LOGO<br>PLACEHOLDER]
+                            </div>
+                            <div class="partner-info">
+                                <h3>Hope Shelter Network</h3>
+                                <p class="partner-type">Service Partner</p>
+                            </div>
+                        </div>
+                        <p class="partner-description">Homeless shelter receiving regular food deliveries. Ensuring vulnerable community members have access to nutritious meals.</p>
+                       
+                        <a href="#" class="partner-link">Visit Website →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Banner -->
+    <section class="quote-banner">
+        <p class="quote-banner-text">"This work is only possible because of collaboration across food systems."</p>
+    </section>
+
+    <!-- ...existing code... -->
+    <!-- Replace the entire <footer>...</footer> block with the following: -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Food Recovery Alliance</h3>
+                <p>A youth-led organization fighting food waste and food insecurity through community action.</p>
+                <div class="social-links">
+                    <a href="http://instagram.com/foodrecoveryalliance/" aria-label="Instagram">📷</a>
+                    <a href="https://www.linkedin.com/company/food-recoveriy-alliance/about/" aria-label="LinkedIn">in</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="about.html">About Us</a>
+                <a href="programs.html">Our Programs</a>
+                <a href="team.html">Our Team</a>
+                <a href="getinvolved.html">Get Involved</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="donate.html">Donate</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>foodrecoveryalliance@gmail.com</p>
+                <p>+1 (604) 861-9688</p>
+                <p>2901 Seapoint Drive <br>Victoria, BC</p>
+            </div>
+            <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <p>Get updates on our impact, events, and opportunities to get involved.</p>
+                <form class="newsletter-form" onsubmit="return false;">
+                    <input type="email" placeholder="Your email address" aria-label="Email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Food Recovery Alliance. All rights reserved. </p>
+        </div>
+    </footer>
+<!-- ...existing code... -->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    // 1. Initialize map centered on Saanichton
+    // Zoom level 14 is great for seeing street names clearly
+    var map = L.map('map').setView([48.5910, -123.4075], 14); 
+
+    // 2. Load the map images
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+    
+    var farmIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+    // 3. Add your marker
+    var marker =L.marker([48.5910, -123.4075], {icon: farmIcon}).addTo(map)
+    .bindPopup("<b>Sunrise Orchards</b>");
+    
+    var marker =L.marker([48.5915, -123.4075], {icon: farmIcon}).addTo(map)
+    .bindPopup("<b>Camas Orchards</b>");
+    
+</script>
+<script>
+        // Newsletter form
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const input = newsletterForm.querySelector('input');
+                if (input.value) {
+                    alert('Thank you for subscribing! We\'ll keep you updated on our impact.');
+                    input.value = '';
+                }
+            });
+        }
+        const form = document.getElementById('newsletter-form');
+  
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            
+            // Get the value from the input
+            const emailValue = form.querySelector('input[name="Email"]').value;
+
+            fetch('https://sheetdb.io/api/v1/wp0ely7f39kfl', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // The key 'Email' must match Cell A1 in your sheet exactly
+                body: JSON.stringify({
+                    data: [
+                        { 'Email': emailValue }
+                    ]
+                })
+            })
+            .then(res => res.json())
+            .then(result => {
+                console.log('Success:', result);
+                alert("Success! Check your Google Sheet now.");
+                form.reset();
+            })
+            .catch(err => console.error('Error:', err));
+        });
+    </script>
+</body>
+</html>

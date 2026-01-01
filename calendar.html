@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Recovery Alliance | Calendar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Lora:wght@400;500&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="imgs2/logo.JPG">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #1E4D3B;
+            --secondary-green: #4CAF6A;
+            --terracotta: #D96C48;
+            --golden: #F4C542;
+            --charcoal: #2B2B2B;
+            --cream: #FAF9F6;
+        }
+
+        body {
+            font-ffamily: 'Lora', serif;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--charcoal);
+            background-color: var(--cream);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        h1 { font-size: 48px; line-height: 1.2; }
+        h2 { font-size: 36px; }
+        h3 { font-size: 28px; }
+
+        .accent-text {
+            font-family: 'Pacifico', cursive;
+            color: var(--secondary-green);
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(30, 77, 59, 0.98);
+            padding: 16px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;    /* Vertically centers the text with the logo */
+            text-decoration: none;  /* Removes underline from the link */
+            gap: 15px;             /* This controls the exact space between logo and text */
+        }
+
+        .brand-logo {
+            width: 50px;           /* Adjust size as needed */
+            height: 50px;
+            border-radius: 50%;    /* Keeps it circular */
+            object-fit: cover;
+          
+            background-color: #fff;
+        }
+
+        .brand-name {
+            color: white;
+            font-size: 1.8rem;
+            font-family: serif;    /* Matches the look in your screenshot */
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links > li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 15px;
+            font-weight: 500;
+            display: block;
+            padding: 8px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-green);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--cream);
+        }
+
+        .dropdown-toggle.active {
+            color: var(--golden);
+        }
+
+        .dropdown-toggle::after {
+            content: '▼';
+            font-size: 10px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            color: var(--charcoal);
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--cream);
+            color: var(--primary-green);
+        }
+
+        .btn-donate {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 10px;
+            background: var(--terracotta);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .btn-donate {
+            display: inline-block;
+            padding: 14px 40px;
+            min-width: 120px;
+            border-radius: 10px;
+            background: var(--terracotta);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .btn-donate:hover {
+            background: #c55a3a;
+            transform: translateY(-2px);
+        }
+
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 77, 59, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2a6950 100%);
+            color: white;
+            padding: 80px 32px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 20px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 32px;
+        }
+
+        /* Calendar Controls */
+        .calendar-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            background: white;
+            padding: 4px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .view-btn {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            color: var(--charcoal);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .view-btn.active {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .legend {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+        }
+
+        .legend-volunteer { background: var(--secondary-green); }
+        .legend-training { background: var(--golden); }
+        .legend-community { background: var(--terracotta); }
+
+        /* Calendar */
+        .calendar-section {
+            background: white;
+        }
+
+        .calendar {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            padding: 32px;
+            margin-bottom: 60px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .calendar-month {
+            font-size: 28px;
+            color: var(--primary-green);
+            font-weight: 700;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary-green);
+            background: transparent;
+            color: var(--primary-green);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary-green);
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            min-height: 100px;
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.3;
+        }
+
+        .calendar-day.today {
+            border-color: var(--terracotta);
+            background: rgba(217, 108, 72, 0.1);
+        }
+
+        .calendar-day:hover {
+            border-color: var(--secondary-green);
+            transform: scale(1.05);
+        }
+
+        .calendar-day.has-event {
+            border-color: var(--secondary-green);
+            background: rgba(76, 175, 106, 0.05);
+        }
+
+        .day-number {
+            font-weight: 700;
+            color: var(--charcoal);
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .day-events {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .event-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .event-volunteer { background: var(--secondary-green); }
+        .event-training { background: var(--golden); }
+        .event-community { background: var(--terracotta); }
+
+        /* Week View */
+        .week-view {
+            display: none;
+        }
+
+        .week-view.active {
+            display: block;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+        }
+
+        .week-day {
+            border: 2px solid #eee;
+            border-radius: 12px;
+            padding: 16px;
+            min-height: 300px;
+            background: white;
+        }
+
+        .week-day.today {
+            border-color: var(--terracotta);
+            background: rgba(217, 108, 72, 0.05);
+        }
+
+        .week-day-header {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .week-day-name {
+            font-weight: 700;
+            color: var(--primary-green);
+            font-size: 14px;
+        }
+
+        .week-day-date {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--charcoal);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .week-events {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .week-event {
+            background: var(--cream);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-green);
+            font-size: 13px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .week-event:hover {
+            transform: translateX(4px);
+        }
+
+        .week-event.training {
+            border-left-color: var(--golden);
+        }
+
+        .week-event.community {
+            border-left-color: var(--terracotta);
+        }
+
+        .event-time {
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 4px;
+        }
+
+        /* Upcoming Events */
+        .upcoming-events {
+            margin-bottom: 60px;
+        }
+
+        .upcoming-events h2 {
+            color: var(--primary-green);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .featured-events {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--secondary-green) 0%, var(--primary-green) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .event-image::before {
+            content: '📷';
+            font-size: 60px;
+            position: absolute;
+            opacity: 0.3;
+        }
+
+        .event-type-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            background: rgba(255,255,255,0.95);
+        }
+
+        .badge-volunteer { color: var(--secondary-green); }
+        .badge-training { color: var(--golden); }
+        .badge-community { color: var(--terracotta); }
+
+        .event-content {
+            padding: 28px;
+        }
+
+        .event-date {
+            color: var(--terracotta);
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .event-content h3 {
+            color: var(--primary-green);
+            margin-bottom: 12px;
+            font-size: 24px;
+        }
+
+        .event-description {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Event Panel */
+        .event-panel {
+            position: fixed;
+            top: 0;
+            right: -500px;
+            width: 500px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 24px rgba(0,0,0,0.2);
+            transition: right 0.4s ease;
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .event-panel.open {
+            right: 0;
+        }
+
+        .panel-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 1999;
+        }
+
+        .panel-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .panel-header {
+            padding: 32px;
+            background: var(--primary-green);
+            color: white;
+            position: relative;
+        }
+
+        .panel-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            transition: background 0.3s;
+        }
+
+        .panel-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .panel-content {
+            padding: 32px;
+        }
+
+        .panel-content h3 {
+            color: var(--primary-green);
+            margin-bottom: 16px;
+        }
+
+        .panel-content p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .map-preview {
+            width: 100%;
+            height: 200px;
+            background: var(--cream);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 24px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Quote Footer */
+        .quote-footer {
+            background: linear-gradient(135deg, var(--terracotta) 0%, #c55a3a 100%);
+            color: white;
+            padding: 80px 32px;
+            text-align: center;
+        }
+
+        .quote-footer-text {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 28px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 60px 32px 24px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-green);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .footer-section p {
+            line-height: 1.8;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-green);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 44px;
+            height: 44px;
+            background: rgba(76, 175, 106, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid var(--secondary-green);
+            background: white;
+            font-size: 15px;
+        }
+
+        .newsletter-form button {
+            padding: 14px 28px;
+            background: var(--secondary-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-green);
+        }
+        @media (max-width: 968px) {
+            .calendar-grid {
+                gap: 4px;
+            }
+            
+            .calendar-day {
+                min-height: 80px;
+                padding: 4px;
+            }
+            
+            .week-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .event-panel {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 28px; }
+            .container { padding: 60px 24px; }
+            .nav-links { display: none; }
+            
+            .featured-events {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-day-header {
+                font-size: 12px;
+                padding: 8px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo-group">
+            <img src="imgs2/logo.JPG" alt="Youth Food Recovery Logo" class="brand-logo">
+            <span class="brand-name">Food Recovery Alliance</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <span class="dropdown-toggle active">Who We Are</span>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Us</a>
+                        <a href="team.html">Our Team</a>
+                        <a href="programs.html">Our Programs</a>
+                        <a href="calendar.html" style="background: var(--cream); color: var(--primary-green);">Calendar</a>
+                    </div>
+                </li>
+                <li><a href="get-involved.html">Get Involved</a></li>
+                <li><a href="donate.html" class="btn-donate">Donate</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Get involved. <span class="accent-text">Make an impact.</span></h1>
+        <p>Join us at upcoming volunteer events, training sessions, and community gatherings.</p>
+    </section>
+
+    <!-- Calendar Section -->
+    <section class="calendar-section">
+        <div class="container">
+            <div class="calendar-controls">
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="switchView('month')">Month</button>
+                    <button class="view-btn" onclick="switchView('week')">Week</button>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-dot legend-volunteer"></div>
+                        <span>Volunteer</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot legend-training"></div>
+                        <span>Training</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot legend-community"></div>
+                        <span>Community Events</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calendar">
+                <div class="calendar-header">
+                    <h2 class="calendar-month" id="calendarMonth">January 2026</h2>
+                    <div class="calendar-nav">
+                        <button class="nav-btn" onclick="changeMonth(-1)">‹</button>
+                        <button class="nav-btn" onclick="changeMonth(1)">›</button>
+                    </div>
+                </div>
+
+                <!-- Month View -->
+                <div id="monthView" class="month-view">
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Generated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Week View -->
+                <div id="weekView" class="week-view">
+                    <div class="week-grid" id="weekGrid">
+                        <!-- Generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="upcoming-events">
+        <div class="container">
+            <h2>Upcoming <span class="accent-text">Highlights</span></h2>
+            <div class="featured-events">
+                <div class="event-card" onclick="openEvent('event1')">
+                    <div class="event-image">
+                        [EVENT IMAGE PLACEHOLDER<br><br>Farm volunteer day photo]
+                        <span class="event-type-badge badge-volunteer">Volunteer</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">Saturday, January 11, 2026 • 9:00 AM - 1:00 PM</div>
+                        <h3>Farm Recovery Day</h3>
+                        <p class="event-description">Join us at Green Valley Farms to recover surplus produce and learn about sustainable farming practices.</p>
+                        <div class="event-meta">
+                            <div class="meta-item">📍 Green Valley Farms</div>
+                            <div class="meta-item">👥 20 spots available</div>
+                        </div>
+                        <a href="#" class="btn btn-primary">Sign Up</a>
+                    </div>
+                </div>
+
+                <div class="event-card" onclick="openEvent('event2')">
+                    <div class="event-image">
+                        [EVENT IMAGE PLACEHOLDER<br><br>Training workshop photo]
+                        <span class="event-type-badge badge-training">Training</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">Friday, January 16, 2026 • 6:00 PM - 8:00 PM</div>
+                        <h3>Youth Leadership Training</h3>
+                        <p class="event-description">Learn essential leadership skills and how to organize community food recovery initiatives.</p>
+                        <div class="event-meta">
+                            <div class="meta-item">📍 Community Center</div>
+                            <div class="meta-item">👥 30 spots available</div>
+                        </div>
+                        <a href="#" class="btn btn-primary">Sign Up</a>
+                    </div>
+                </div>
+
+                <div class="event-card" onclick="openEvent('event3')">
+                    <div class="event-image">
+                        [EVENT IMAGE PLACEHOLDER<br><br>Community event photo]
+                        <span class="event-type-badge badge-community">Community Event</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">Saturday, January 24, 2026 • 10:00 AM - 3:00 PM</div>
+                        <h3>Food Justice Fair</h3>
+                        <p class="event-description">Community celebration featuring food, speakers, and activities highlighting our collective impact.</p>
+                        <div class="event-meta">
+                            <div class="meta-item">📍 City Park Pavilion</div>
+                            <div class="meta-item">👥 Open to all</div>
+                        </div>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Footer -->
+    <section class="quote-footer">
+        <p class="quote-footer-text">"Showing up is the first step to changing food systems."</p>
+    </section>
+
+    <!-- Event Panel -->
+    <div class="panel-overlay" id="panelOverlay" onclick="closeEvent()"></div>
+    <div class="event-panel" id="eventPanel">
+        <div class="panel-header">
+            <button class="panel-close" onclick="closeEvent()">×</button>
+            <h2 id="panelTitle">Event Details</h2>
+        </div>
+        <div class="panel-content" id="panelContent">
+            <p>Click an event to view details...</p>
+        </div>
+    </div>
+
+   <!-- ...existing code... -->
+    <!-- Replace the entire <footer>...</footer> block with the following: -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Food Recovery Alliance</h3>
+                <p>A youth-led organization fighting food waste and food insecurity through community action.</p>
+                <div class="social-links">
+                    <a href="http://instagram.com/foodrecoveryalliance/" aria-label="Instagram">📷</a>
+                    <a href="https://www.linkedin.com/company/food-recoveriy-alliance/about/" aria-label="LinkedIn">in</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="about.html">About Us</a>
+                <a href="programs.html">Our Programs</a>
+                <a href="team.html">Our Team</a>
+                <a href="getinvolved.html">Get Involved</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="donate.html">Donate</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>foodrecoveryalliance@gmail.com</p>
+                <p>+1 (604) 861-9688</p>
+                <p>2901 Seapoint Drive <br>Victoria, BC</p>
+            </div>
+            <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <p>Get updates on our impact, events, and opportunities to get involved.</p>
+                <form class="newsletter-form" onsubmit="return false;">
+                    <input type="email" placeholder="Your email address" aria-label="Email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Food Recovery Alliance. All rights reserved. </p>
+        </div>
+    </footer>
+<!-- ...existing code... -->
+
+    <script>
+        // Calendar state
+        let currentDate = new Date(2026, 0, 1); // January 2026
+        let currentView = 'month';
+        let currentWeekStart = new Date(2026, 0, 5); // Start with first full week
+
+        // Sample events (date format: YYYY-MM-DD)
+        const events = {
+            '2026-01-11': [{ id: 'event1', type: 'volunteer', title: 'Farm Recovery Day', time: '9:00 AM' }],
+            '2026-01-16': [{ id: 'event2', type: 'training', title: 'Youth Leadership Training', time: '6:00 PM' }],
+            '2026-01-24': [{ id: 'event3', type: 'community', title: 'Food Justice Fair', time: '10:00 AM' }],
+            '2026-01-25': [{ type: 'volunteer', title: 'Food Delivery', time: '2:00 PM' }],
+            '2026-02-08': [{ type: 'volunteer', title: 'Farm Recovery Day', time: '9:00 AM' }],
+            '2026-02-14': [{ type: 'training', title: 'Food Safety Workshop', time: '7:00 PM' }],
+            '2026-02-21': [{ type: 'community', title: 'Community Potluck', time: '5:00 PM' }]
+        };
+
+        const eventDetails = {
+            event1: {
+                title: 'Farm Recovery Day',
+                date: 'Saturday, January 11, 2026 • 9:00 AM - 1:00 PM',
+                location: 'Green Valley Farms',
+                address: '123 Farm Road, Rural County',
+                description: 'Join us for a morning of hands-on food recovery at Green Valley Farms. We\'ll be harvesting surplus produce, learning about sustainable farming practices, and connecting with our partner farmers.',
+                details: 'What to bring: Sunscreen, water bottle, work gloves (we\'ll provide extras), and a positive attitude. Wear comfortable clothes that can get dirty.',
+                spots: '20 spots available'
+            },
+            event2: {
+                title: 'Youth Leadership Training',
+                date: 'Friday, January 16, 2026 • 6:00 PM - 8:00 PM',
+                location: 'Community Center',
+                address: '456 Main Street, Downtown',
+                description: 'Develop essential leadership skills in this interactive workshop designed for youth volunteers.',
+                details: 'Topics: Team coordination, volunteer management, community organizing, public speaking. Dinner provided.',
+                spots: '30 spots available'
+            },
+            event3: {
+                title: 'Food Justice Fair',
+                date: 'Saturday, January 24, 2026 • 10:00 AM - 3:00 PM',
+                location: 'City Park Pavilion',
+                address: '789 Park Avenue, City Center',
+                description: 'Celebrate our community\'s commitment to food justice! Free family-friendly event.',
+                details: 'Activities: Cooking demos, youth art showcase, garden tours, and info booths.',
+                spots: 'Open to all'
+            }
+        };
+
+        function getMonthName(month) {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            return months[month];
+        }
+
+        function getDayName(day) {
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            return days[day];
+        }
+
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function isToday(date) {
+            const today = new Date();
+            return date.getDate() === today.getDate() &&
+                   date.getMonth() === today.getMonth() &&
+                   date.getFullYear() === today.getFullYear();
+        }
+
+        function renderMonthView() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('calendarMonth').textContent = `${getMonthName(month)} ${year}`;
+            
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const prevLastDay = new Date(year, month, 0);
+            
+            const firstDayOfWeek = firstDay.getDay();
+            const lastDate = lastDay.getDate();
+            const prevLastDate = prevLastDay.getDate();
+            
+            let html = '';
+            
+            // Day headers
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayNames.forEach(day => {
+                html += `<div class="calendar-day-header">${day}</div>`;
+            });
+            
+            // Previous month days
+            for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+                const day = prevLastDate - i;
+                html += `<div class="calendar-day other-month"><div class="day-number">${day}</div></div>`;
+            }
+            
+            // Current month days
+            for (let day = 1; day <= lastDate; day++) {
+                const date = new Date(year, month, day);
+                const dateStr = formatDate(date);
+                const dayEvents = events[dateStr] || [];
+                const hasEvent = dayEvents.length > 0;
+                const todayClass = isToday(date) ? 'today' : '';
+                const eventClass = hasEvent ? 'has-event' : '';
+                
+                html += `<div class="calendar-day ${todayClass} ${eventClass}" onclick="showDayEvents('${dateStr}')">
+                    <div class="day-number">${day}</div>
+                    <div class="day-events">`;
+                
+                dayEvents.forEach(event => {
+                    html += `<div class="event-dot event-${event.type}"></div>`;
+                });
+                
+                html += `</div></div>`;
+            }
+            
+            // Next month days
+            const totalCells = firstDayOfWeek + lastDate;
+            const remainingCells = 42 - totalCells; // 6 rows * 7 days
+            for (let day = 1; day <= remainingCells; day++) {
+                html += `<div class="calendar-day other-month"><div class="day-number">${day}</div></div>`;
+            }
+            
+            document.getElementById('calendarGrid').innerHTML = html;
+        }
+
+        function renderWeekView() {
+            const year = currentWeekStart.getFullYear();
+            const month = currentWeekStart.getMonth();
+            const startDate = currentWeekStart.getDate();
+            
+            // Update month display
+            const weekEnd = new Date(currentWeekStart);
+            weekEnd.setDate(weekEnd.getDate() + 6);
+            document.getElementById('calendarMonth').textContent = 
+                `${getMonthName(month)} ${startDate} - ${weekEnd.getDate()}, ${year}`;
+            
+            let html = '';
+            
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(currentWeekStart);
+                date.setDate(date.getDate() + i);
+                const dateStr = formatDate(date);
+                const dayEvents = events[dateStr] || [];
+                const todayClass = isToday(date) ? 'today' : '';
+                
+                html += `<div class="week-day ${todayClass}">
+                    <div class="week-day-header">
+                        <div class="week-day-name">${getDayName(date.getDay())}</div>
+                        <div class="week-day-date">${date.getDate()}</div>
+                    </div>
+                    <div class="week-events">`;
+                
+                if (dayEvents.length === 0) {
+                    html += `<div style="color: #999; font-size: 13px; text-align: center; margin-top: 20px;">No events</div>`;
+                } else {
+                    dayEvents.forEach(event => {
+                        const eventId = event.id || '';
+                        html += `<div class="week-event ${event.type}" onclick="openEvent('${eventId}')">
+                            <div class="event-time">${event.time}</div>
+                            <div>${event.title}</div>
+                        </div>`;
+                    });
+                }
+                
+                html += `</div></div>`;
+            }
+            
+            document.getElementById('weekGrid').innerHTML = html;
+        }
+
+        function changeMonth(direction) {
+            if (currentView === 'month') {
+                currentDate.setMonth(currentDate.getMonth() + direction);
+                renderMonthView();
+            } else {
+                currentWeekStart.setDate(currentWeekStart.getDate() + (direction * 7));
+                renderWeekView();
+            }
+        }
+
+        function switchView(view) {
+            currentView = view;
+            
+            // Update button states
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Show/hide views
+            if (view === 'month') {
+                document.getElementById('monthView').style.display = 'block';
+                document.getElementById('weekView').classList.remove('active');
+                renderMonthView();
+            } else {
+                document.getElementById('monthView').style.display = 'none';
+                document.getElementById('weekView').classList.add('active');
+                // Set current week start to the first day of current month's first full week
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const dayOfWeek = firstDay.getDay();
+                currentWeekStart = new Date(firstDay);
+                if (dayOfWeek !== 0) {
+                    currentWeekStart.setDate(firstDay.getDate() + (7 - dayOfWeek));
+                }
+                renderWeekView();
+            }
+        }
+
+        function showDayEvents(dateStr) {
+            const dayEvents = events[dateStr];
+            if (!dayEvents || dayEvents.length === 0) return;
+            
+            if (dayEvents[0].id) {
+                openEvent(dayEvents[0].id);
+            }
+        }
+
+        function openEvent(eventId) {
+            const event = eventDetails[eventId];
+            if (!event) return;
+
+            document.getElementById('panelTitle').textContent = event.title;
+            document.getElementById('panelContent').innerHTML = `
+                <div class="event-date">${event.date}</div>
+                <h3>About This Event</h3>
+                <p>${event.description}</p>
+                <h3>Details</h3>
+                <p>${event.details}</p>
+                <h3>Location</h3>
+                <p><strong>${event.location}</strong><br>${event.address}</p>
+                <div class="map-preview">[MAP PREVIEW PLACEHOLDER<br>${event.location}]</div>
+                <p><strong>Availability:</strong> ${event.spots}</p>
+                <a href="#" class="btn btn-primary" style="display: block; text-align: center; margin-top: 24px;">Sign Up for This Event</a>
+            `;
+
+            document.getElementById('eventPanel').classList.add('open');
+            document.getElementById('panelOverlay').classList.add('open');
+        }
+
+        function closeEvent() {
+            document.getElementById('eventPanel').classList.remove('open');
+            document.getElementById('panelOverlay').classList.remove('open');
+        }
+
+        // Initialize calendar
+        renderMonthView();
+    </script>
+    <script>
+        // Newsletter form
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const input = newsletterForm.querySelector('input');
+                if (input.value) {
+                    alert('Thank you for subscribing! We\'ll keep you updated on our impact.');
+                    input.value = '';
+                }
+            });
+        }
+        const form = document.getElementById('newsletter-form');
+  
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            
+            // Get the value from the input
+            const emailValue = form.querySelector('input[name="Email"]').value;
+
+            fetch('https://sheetdb.io/api/v1/wp0ely7f39kfl', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // The key 'Email' must match Cell A1 in your sheet exactly
+                body: JSON.stringify({
+                    data: [
+                        { 'Email': emailValue }
+                    ]
+                })
+            })
+            .then(res => res.json())
+            .then(result => {
+                console.log('Success:', result);
+                alert("Success! Check your Google Sheet now.");
+                form.reset();
+            })
+            .catch(err => console.error('Error:', err));
+        });
+    </script>
+</body>
+</html>

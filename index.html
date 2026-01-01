@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Recovery Alliance | Home</title>
+    <link rel="icon" type="image/png" href="imgs2/logo.JPG">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Lora:wght@400;500&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #1E4D3B;
+            --secondary-green: #4CAF6A;
+            --terracotta: #D96C48;
+            --golden: #F4C542;
+            --charcoal: #2B2B2B;
+            --cream: #FAF9F6;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background-color: var(--cream);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        h1 { font-size: 48px; }
+        h2 { font-size: 36px; }
+        h3 { font-size: 28px; }
+
+        .accent-text {
+            font-family: 'Pacifico', cursive;
+            color: var(--secondary-green);
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(30, 77, 59, 0.98);
+            padding: 16px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;    /* Vertically centers the text with the logo */
+            text-decoration: none;  /* Removes underline from the link */
+            gap: 15px;             /* This controls the exact space between logo and text */
+        }
+
+        .brand-logo {
+            width: 50px;           /* Adjust size as needed */
+            height: 50px;
+            border-radius: 50%;    /* Keeps it circular */
+            object-fit: cover;
+            
+            background-color: #fff;
+        }
+
+        .brand-name {
+            color: white;
+            font-size: 1.8rem;
+            font-family: serif;    /* Matches the look in your screenshot */
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links > li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 15px;
+            font-weight: 500;
+            display: block;
+            padding: 8px 0;
+        }
+
+        
+
+        .nav-links .active {
+            color: var(--golden);
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dropdown-toggle::after {
+            content: '▼';
+            font-size: 8px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            text-decoration-color: var(--white);
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            color: var(--charcoal);
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 15px;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--cream);
+            color: var(--primary-green);
+        }
+
+        .btn-donate {
+            display: inline-block;
+            padding: 14px 40px;
+            min-width: 120px;
+            border-radius: 10px;
+            background: var(--terracotta);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .btn-donate:hover {
+            background: #c55a3a;
+            transform: translateY(-2px);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 77, 59, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 650px; /* Use 100vh if you want it to fill the entire screen height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Simplified background properties */
+            background-image: url('imgs/home.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* 0.5 is 50% darkness; increase to 0.7 for darker */
+            z-index: 1;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2; /* Increased to stay above the overlay */
+            text-align: center;
+            padding: 80px 32px;
+        }
+        .hero-content p {
+            line-height: 2.0; /* Increased from 1.7 to 2.0 for more breathing room */
+            margin-top: 7px;
+            margin-bottom: 7px;
+        }
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        /* Featured Section */
+        .featured {
+            background: white;
+            text-align: center;
+        }
+
+        .featured h2 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .featured-subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .featured-card {
+            background: var(--cream);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+        }
+
+        .featured-image1 {
+            width: 100%;
+            height: 220px;
+            background: url(imgs/rapid.jpeg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+        }
+        .featured-image2 {
+            width: 100%;
+            height: 220px;
+            background: url(imgs/makesoup.jpeg);
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image3 {
+            width: 100%;
+            height: 220px;
+            background: url(imgs/youth_outreach.JPG);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            background-size: cover;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+
+        .featured-content {
+            padding: 28px;
+            text-align: left;
+        }
+
+        .featured-content h3 {
+            color: var(--primary-green);
+            margin-bottom: 12px;
+            font-size: 24px;
+        }
+
+        .featured-content p {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        /* Impact Stats */
+        .impact-stats {
+            position: relative;
+            color: white;
+            overflow: hidden;
+            padding: 80px 32px;
+        }
+        .impact-stats::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); /* semi-transparent overlay */
+            z-index: 1;
+            pointer-events: none;
+        }
+        .impact-stats {
+            background: url(imgs/impact.JPG);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .impact-stats > .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .impact-stats::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 50%;
+        }
+
+        .impact-stats h2 {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            position: relative;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 32px;
+            background: rgba(255, 255, 255,1);
+            border-radius: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: 800;
+            color: var(--golden);
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: rgba(30, 77, 59, 1);
+            font-weight: 500;
+        }
+
+        /* Journey Section */
+        .journey-section {
+            background: white;
+        }
+
+        .timeline-img {
+            width: 100%;           /* Fills the card width */
+            height: 300px;         /* Forced height so it doesn't get 'huge' on full screen */
+            object-fit: cover;     /* Use THIS instead of background-size for <img> tags */
+            border-radius: 8px;
+            margin-top: 15px;
+            display: block;
+        }
+            
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--secondary-green);
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .timeline-content {
+            background: var(--cream);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        .timeline-year {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--terracotta);
+            margin-bottom: 12px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content:first-child {
+            grid-column: 2;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content:last-child {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--terracotta) 0%, #c55a3a 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 32px;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 20px;
+            font-size: 42px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 60px 32px 24px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-green);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .footer-section p {
+            line-height: 1.8;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-green);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid var(--secondary-green);
+            background: white;
+            font-size: 15px;
+        }
+
+        .newsletter-form button {
+            padding: 14px 28px;
+            background: var(--secondary-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-green);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 44px;
+            height: 44px;
+            background: rgba(76, 175, 106, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+        }
+        
+        @media (max-width: 968px) {
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                grid-template-columns: 1fr;
+                padding-left: 60px;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-content:first-child {
+                grid-column: 1;
+            }
+
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 28px; }
+            h3 { font-size: 22px; }
+            
+            .hero { min-height: 500px; }
+            .hero h1 { font-size: 40px; }
+            .container { padding: 60px 24px; }
+            .nav-links { display: none; }
+            
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+    <div class="nav-container">
+        <a href="index.html" class="logo-group">
+            <img src="imgs2/logo.JPG" alt="Youth Food Recovery Logo" class="brand-logo">
+            <span class="brand-name">Food Recovery Alliance</span>
+        </a>
+        
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li class="dropdown">
+                <span class="dropdown-toggle">Who We Are</span>
+                <div class="dropdown-menu">
+                    <a href="about.html">About Us</a>
+                    <a href="team.html">Our Team</a>
+                    <a href="programs.html">Our Programs</a>
+                    <a href="calendar.html">Calendar</a>
+                </div>
+            </li>
+            <li><a href="get-involved.html">Get Involved</a></li>
+            <li><a href="donate.html" class="btn-donate">Donate</a></li>
+        </ul>
+    </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <h1>Fighting Food Waste,<br>Feeding Communities</h1>
+            <p>Youth movement donating one pound for every food insecure person in British Columbia.</p>
+            <p>7,200/1,000,000</p>
+            <div class="hero-buttons">
+                <a href="get-involved.html" class="btn btn-primary">Get Involved Today</a>
+                <a href="#timeline" class="btn btn-secondary">Learn Our Story</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="featured">
+        <div class="container">
+            <h2>How We <span class="accent-text">Make a Difference</span></h2>
+            <p class="featured-subtitle">Through collaboration, innovation, and youth leadership, we're transforming the way communities approach food waste and hunger.</p>
+            <div class="featured-grid">
+                <div class="featured-card">
+                    <div class="featured-image1">
+                      
+                    </div>
+                    <div class="featured-content">
+                        <h3>Gleaning</h3>
+                        <p>Partnering with local farms to rescue surplus food that would otherwise go to waste.</p>
+                        <a href="programs.html" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <div class="featured-image2">
+                       
+                    </div>
+                    <div class="featured-content">
+                        <h3>Community Food Outreach</h3>
+                        <p>Youth volunteers coordinate harvesting or weeding activities at local farms or preparing nutritous processed foods for local food shelters.</p>
+                        <a href="programs.html" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <div class="featured-image3">
+                        
+                    </div>
+                    <div class="featured-content">
+                        <h3>Youth Education</h3>
+                        <p>Teaching young people about food systems, sustainability, and how they can make a difference in their communities.</p>
+                        <a href="programs.html" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Stats -->
+    <section class="impact-stats">
+        <div class="container">
+            <h2>Our Impact <span class="accent-text">By The Numbers</span></h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number" data-target="7200+">0</span>
+                    <div class="stat-label">Pounds of Food Recovered</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-target="25000+">0</span>
+                    <div class="stat-label">Dollars Worth Donated</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-target="200+">0</span>
+                    <div class="stat-label">Youth Volunteers</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-target="60+">0</span>
+                    <div class="stat-label">Organizations reached</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Section (no title) -->
+    <section id="timeline" class="journey-section">
+        <div class="container">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">July 2024</div>
+                        <h3>The Beginning</h3>
+                        <p>Started by our founder and two other high school students with a passion for reducing food waste. First partnership with City's Edge Farm rescued 20 lbs of produce.</p>
+                        <img src="imgs/babyapollin.jpg" alt="The Beginning" class="timeline-img">
+                        </div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">August 2024</div>
+                        <h3>Volunteer Outreach</h3>
+                        <p>Developed our community outreach program volunteering at some of our first partner farms Camas Farms, City's Edge Farm, and Black Dirt Farm.</p>
+                        <img src="imgs/onion.JPG" alt="The Beginning" class="timeline-img">
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">September 2024</div>
+                        <h3>Our First Fundraiser</h3>
+                        <p>Sold 1000 dollars+ of garlic butter at the Saanich fair marking our first fundraising event.</p>
+                         <img src="imgs/garlicbutter.JPG" alt="The Beginning" class="timeline-img">
+                        </div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">February 2025</div>
+                        <h3>Provincial and Federal Incorporation</h3>
+                        <p>Officially Incorporated as West Coast Food Recovery Alliance Foundation under the British Columbia Societies Act and then later federally under the Government of Canada.</p>
+                        <img src="imgs/incorporation.jpeg" alt="The Beginning" class="timeline-img">
+                        </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">March 2025</div>
+                        <h3>Started our Community Garden and Youth Education Program</h3>
+                        <p>Built a Youth-Run Community Garden to promote sustainable agriculture and provide fresh produce to local food banks.</p>
+                        <img src="imgs/garden.png" alt="The Beginning" class="timeline-img">
+                        </div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">April 2025</div>
+                        <h3>Opened our Vancouver Chapter</h3>
+                        <p>Expanded into Vancouver where we would go on to establish partnerships with Kind Hearted Farm, local organization Project Hastings and Amazon volunteers.</p>
+                         <img src="imgs/amazon.png" alt="The Beginning" class="timeline-img">
+                        </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">September 2025</div>
+                        <h3>Today</h3>
+                        <p>70+ active volunteers, 15+ partner organizations, and over 7,000 pounds of food recovered. </p>
+                        <img src="imgs/planting.png" alt="The Beginning" class="timeline-img">
+                        </div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">July 2025</div>
+                        <h3>Rapid Growth</h3>
+                        <p>Connected with 10+ local farms and organizations in Victoria and Vancouver.</p>
+                        <img src="imgs/rapid.jpeg" alt="The Beginning" class="timeline-img">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Make a Difference?</h2>
+            <p>Join our community of young changemakers and help build a more sustainable and equitable food system.</p>
+            <div class="hero-buttons">
+                <a href="get-involved.html" class="btn btn-primary">Volunteer With Us</a>
+                <a href="donate.html" class="btn btn-secondary">Support Our Mission</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Food Recovery Alliance</h3>
+                <p>A youth-led organization fighting food waste and food insecurity through community action.</p>
+                <div class="social-links">
+                    <a href="http://instagram.com/foodrecoveryalliance/" aria-label="Instagram">📷</a>
+                    <a href="https://www.linkedin.com/company/food-recoveriy-alliance/about/" aria-label="LinkedIn">in</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="about.html">About Us</a>
+                <a href="programs.html">Our Programs</a>
+                <a href="team.html">Our Team</a>
+                <a href="get-involved.html">Get Involved</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="donate.html">Donate</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>foodrecoveryalliance@gmail.com</p>
+                <p>+1 (604) 861-9688</p>
+                <p>2901 Seapoint Drive <br>Victoria, BC</p>
+            </div>
+             <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <p>Get updates on our impact, events, and opportunities to get involved.</p>
+                <form class="newsletter-form" onsubmit="return false;">
+                    <input type="email" name="Email" placeholder="Your Email Address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Food Recovery Alliance. All rights reserved. </p>
+        </div>
+    </footer>
+
+    <script>
+        // Animated Counter
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    element.textContent = Math.floor(current).toLocaleString();
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target.toLocaleString();
+                }
+            };
+
+            updateCounter();
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('stat-number')) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe stat numbers
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            observer.observe(stat);
+        });
+
+        
+    </script>
+    <script>
+        // Newsletter form
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const input = newsletterForm.querySelector('input');
+                if (input.value) {
+                    alert('Thank you for subscribing! We\'ll keep you updated on our impact.');
+                    input.value = '';
+                }
+            });
+        }
+        const form = document.getElementById('newsletter-form');
+  
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            
+            // Get the value from the input
+            const emailValue = form.querySelector('input[name="Email"]').value;
+
+            fetch('https://sheetdb.io/api/v1/wp0ely7f39kfl', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // The key 'Email' must match Cell A1 in your sheet exactly
+                body: JSON.stringify({
+                    data: [
+                        { 'Email': emailValue }
+                    ]
+                })
+            })
+            .then(res => res.json())
+            .then(result => {
+                console.log('Success:', result);
+                alert("Success! Check your Google Sheet now.");
+                form.reset();
+            })
+            .catch(err => console.error('Error:', err));
+        });
+    </script>
+</body>
+</html>
